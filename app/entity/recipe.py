@@ -15,4 +15,4 @@ class Recipe(db.Model):
     category = db.relationship('Category')
 
     def __str__(self):
-        return u"".format(self.name)
+        return self.name
