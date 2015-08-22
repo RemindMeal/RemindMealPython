@@ -8,7 +8,8 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 admin = Admin(app, name="RemindMeal", template_mode="bootstrap3")
 
-from views import FriendView, MealView
+from views import CategoryView, FriendView, MealView
 
+admin.add_view(CategoryView(db.session))
 admin.add_view(FriendView(db.session))
 admin.add_view(MealView(db.session))
