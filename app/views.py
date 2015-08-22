@@ -1,4 +1,4 @@
-from app.entity import Category, Friend, Meal
+from app.entity import *
 from flask.ext.admin.contrib.sqla import ModelView
 
 class CategoryView(ModelView):
@@ -17,3 +17,9 @@ class MealView(ModelView):
 
     def __init__(self, session):
         super(MealView, self).__init__(Meal, session)
+
+
+class RecipeView(ModelView):
+
+    def __init__(self, session):
+        super(RecipeView, self).__init__(Recipe, session)
