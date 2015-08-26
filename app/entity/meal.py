@@ -18,3 +18,14 @@ class Meal(db.Model):
 
     def __str__(self):
         return self.date.strftime("%d/%m/%Y")
+
+    def __unicode__(self):
+        return str(self)
+
+    @property
+    def categories(self):
+        result = []
+        for recipe in self.recipes:
+            if recipe.category not in result:
+                result.append(recipe.category)
+        return result

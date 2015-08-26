@@ -1,0 +1,27 @@
+{% extends 'admin/model/modals/details.html' %}
+
+
+{% block header_text %}
+  <h3>Repas du {{ model }}</h3>
+{% endblock %}
+
+{% block details_table %}
+  {{ super() }}
+
+  <h3>Menu</h3>
+  {% for category in model.categories %}
+    <h5>{{ category }}</h5>
+    <ul>
+      {% for recipe in model.recipes if recipe.category == category %}
+        <li>{{ recipe }}</li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+
+  <h3>Invités</h3>
+  <ul>
+    {% for friend in model.friends %}
+      <li>{{ friend }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{ meal }}
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#friend-pills-{{ meal.id }}" data-toggle="tab">Amis</a>
+            </li>
+            <li><a href="#recipe-pills-{{ meal.id }}" data-toggle="tab">Menu</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="friend-pills-{{ meal.id }}">
+                <h4>Invités</h4>
+                <ul>
+                    {% for friend in meal.friends %}
+                        <li>{{ friend }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane fade" id="recipe-pills-{{ meal.id }}">
+                <h4>Menu</h4>
+                <ul>
+                    {% for recipe in meal.recipes %}
+                        <li>{{ recipe }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>

@@ -1,0 +1,28 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+    <h3>Ami {{ friend }}</h3>
+
+    <p>Ajouté le {{ friend.date|format }}</p>
+
+    <h3>Repas</h3>
+    <p>Cet ami a été invité aux repas suivants :</p>
+    <div class="row">
+        {% for meal in friend.meals %}
+            <div class="col-xs-6 col-sm-3">
+                {% include('meal/panel.html') %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Recettes</h3>
+    <p>Cet ami a déjà goûté les recettes suivantes :</p>
+    <div class="row">
+        {% for recipe in friend.recipes %}
+            <div class="col-xs-6 col-sm-3">
+                {% include('recipe/panel.html') %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

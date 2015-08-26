@@ -12,5 +12,14 @@ class Friend(db.Model):
     name = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
 
-    def __str__(self):
+    def __unicode__(self):
         return u"{:s} {:s}".format(self.name, self.surname)
+
+    @property
+    def recipes(self):
+        array = []
+        for meal in self.meals:
+            for recipe in meal.recipes:
+                if recipe not in array:
+                    array.append(recipe)
+        return array

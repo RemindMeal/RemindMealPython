@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ url_for('recipe.show_view', id=recipe.id) }}">
+            {{ recipe.name }}
+        </a>
+    </div>
+
+    <div class="panel-body">
+        <p>Recette créée le {{ recipe.date }}</p>
+        <p>Vous avez cuisiné cette recette {{ recipe.meals|length }} fois</p>
+        <p>Dernière fois : {{ recipe.meals[-1].date|format }}</p>
+    </div>
+
+</div>
+

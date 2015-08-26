@@ -12,7 +12,7 @@ class Recipe(db.Model):
     name = db.Column(db.String(255), nullable=False, unique=True)
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    category = db.relationship('Category')
+    category = db.relationship('Category', backref='recipes')
 
     def __str__(self):
         return self.name
