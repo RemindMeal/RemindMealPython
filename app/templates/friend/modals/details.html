@@ -1,0 +1,31 @@
+{% extends 'admin/model/modals/details.html' %}
+
+{% block header_text %}
+    <h3>Détails de {{ model }}</h3>
+{% endblock %}
+
+{% block details_table %}
+
+    <p>Ajouté le {{ model.date|format }}</p>
+
+    <h3>Repas</h3>
+    <p>Cet ami a été invité aux repas suivants :</p>
+    <div class="row">
+        {% for meal in model.meals %}
+            <div class="col-xs-6">
+                {% include('meal/panel.html') %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Recettes</h3>
+    <p>Cet ami a déjà goûté les recettes suivantes :</p>
+    <div class="row">
+        {% for recipe in model.recipes %}
+            <div class="col-xs-6">
+                {% include('recipe/panel.html') %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

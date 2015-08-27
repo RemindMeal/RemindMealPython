@@ -30,10 +30,14 @@ class FriendView(MyView):
     column_list = ('nom',)
     column_labels = dict(name='Prenom', surname='Nom')
     column_searchable_list = ('name', 'surname')
-    form_excluded_columns = ('date',)
+    form_excluded_columns = ('date', 'meals')
 
     column_formatters = dict(nom=lambda v, c, m, p: u'<a href="{:s}">{:s} {:s}</a>'.format(
         url_for('.show_view', id=m.id), m.name, m.surname))
+
+    create_modal_template = 'friend/modals/create.html'
+    details_modal_template = 'friend/modals/details.html'
+    edit_modal_template = 'friend/modals/edit.html'
 
     show_template = 'friend/show.html'
 
@@ -46,10 +50,7 @@ class FriendView(MyView):
             Show model view.
         """
 
-        return self.render(
-            self.show_template,
-            friend=Friend.query.get(id),
-        )
+        return self.render(self.show_template, friend=Friend.query.get(id))
 
 
 class MealView(MyView):
