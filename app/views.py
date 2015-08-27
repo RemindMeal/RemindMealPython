@@ -1,7 +1,8 @@
-from flask import url_for
-from flask.ext.admin import expose
+from flask import url_for, redirect
+from flask.ext.admin import expose, BaseView
 from app.entity import *
 from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.security import current_user
 
 
 class MyView(ModelView):
@@ -9,6 +10,10 @@ class MyView(ModelView):
     create_modal = True
     edit_modal = True
     details_modal = True
+
+    def is_accessible(self):
+        return current_user.is_authenticated()
+
 
 class CategoryView(MyView):
 
@@ -91,3 +96,33 @@ class RecipeView(MyView):
         """
 
         return self.render(self.show_template, recipe=Recipe.query.get(id))
+
+
+class LoginView(BaseView):
+
+    @expose('/')
+    def index(self):
+        return redirect(url_for('security.login'))
+
+    def is_accessible(self):
+        return not current_user.is_authenticated()
+
+
+class LogoutView(BaseView):
+
+    @expose('/')
+    def index(self):
+        return redirect(url_for('security.logout'))
+
+    def is_accessible(self):
+        return current_user.is_authenticated()
+
+
+class RegisterView(BaseView):
+
+    @expose('/')
+    def index(self):
+        return redirect(url_for('security.register'))
+
+    def is_accessible(self):
+        return not current_user.is_authenticated()

@@ -38,15 +38,9 @@ CSRF_SESSION_KEY = "fxfxqfvqgqcqfqijqfciqjixi354545Icijrmcijfeicj5J3OICJ53Mjcmjr
 # Secret key for signing cookies
 SECRET_KEY = "EUHFNXLUEHfnxluehflnxuzehf343U483UCN3URNCP3Unczeficjnzeifjc34U39URCN3RUCNfjcnijfcm"
 
-# Flask-User config
-USER_CHANGE_PASSWORD_URL      = '/user/change-password'
-USER_CHANGE_USERNAME_URL      = '/user/change-username'
-USER_CONFIRM_EMAIL_URL        = '/user/confirm-email/<token>'
-USER_EMAIL_ACTION_URL         = '/user/email/<id>/<action>'     # v0.5.1 and up
-USER_FORGOT_PASSWORD_URL      = '/user/forgot-password'
-USER_LOGIN_URL                = '/user/login'
-USER_LOGOUT_URL               = '/user/logout'
-USER_MANAGE_EMAILS_URL        = '/user/manage-emails'
-USER_REGISTER_URL             = '/user/register'
-USER_RESEND_CONFIRM_EMAIL_URL = '/user/resend-confirm-email'    # v0.5.0 and up
-USER_RESET_PASSWORD_URL       = '/user/reset-password/<token>'
+# Flask-Security config
+#SECURITY_LOGIN_USER_TEMPLATE = 'security/login.html'
+SECURITY_REGISTERABLE = True
+SECURITY_PASSWORD_HASH = 'pbkdf2_sha512'
+SECURITY_PASSWORD_SALT = 'fncoqzifjcqmzoeifjnvqmghcqnmfiqxeje,zmqcgnixzmnijcgimcqjergiomc,qejiormgcjnq'
+SECURITY_UNAUTHORIZED_VIEW = 'security.login'
