@@ -1,4 +1,4 @@
-"""empty message
+"""Create 'role' and 'user' tables, and 'role_user' relationship table
 
 Revision ID: 27beffe8d1c5
 Revises: 2f489a21265c
@@ -21,22 +21,22 @@ def upgrade():
     sa.Column('name', sa.String(length=80), nullable=True),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.UniqueConstraint('name', name='u_role_name')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=True),
     sa.Column('password', sa.String(length=255), nullable=True),
     sa.Column('active', sa.Boolean(), nullable=True),
-    sa.Column('confirmed_at', sa.DateTime(), nullable=True),
+    sa.Column('confirmed_at', sa.TIMESTAMP(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.UniqueConstraint('email', name='u_user_email')
     )
     op.create_table('role_user',
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('role_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['role_id'], ['role.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], )
+    sa.ForeignKeyConstraint(['role_id'], ['role.id'], name='fk_role_user_role'),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], name='fk_role_user_user')
     )
     ### end Alembic commands ###
 

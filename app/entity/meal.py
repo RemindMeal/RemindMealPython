@@ -15,6 +15,9 @@ class Meal(db.Model):
     friends = db.relationship('Friend', secondary=Participation, backref="meals")
     recipes = db.relationship('Recipe', secondary=Cooking, backref="meals")
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='meals')
+
     def __str__(self):
         return self.date.strftime("%d/%m/%Y")
 

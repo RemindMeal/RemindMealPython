@@ -39,8 +39,12 @@ CSRF_SESSION_KEY = "fxfxqfvqgqcqfqijqfciqjixi354545Icijrmcijfeicj5J3OICJ53Mjcmjr
 SECRET_KEY = "EUHFNXLUEHfnxluehflnxuzehf343U483UCN3URNCP3Unczeficjnzeifjc34U39URCN3RUCNfjcnijfcm"
 
 # Flask-Security config
-#SECURITY_LOGIN_USER_TEMPLATE = 'security/login.html'
+SECURITY_LOGIN_USER_TEMPLATE = 'security/my_login_user.html'
+SECURITY_REGISTER_USER_TEMPLATE = 'security/my_register_user.html'
 SECURITY_REGISTERABLE = True
 SECURITY_PASSWORD_HASH = 'pbkdf2_sha512'
 SECURITY_PASSWORD_SALT = 'fncoqzifjcqmzoeifjnvqmghcqnmfiqxeje,zmqcgnixzmnijcgimcqjergiomc,qejiormgcjnq'
 SECURITY_UNAUTHORIZED_VIEW = 'security.login'
+
+# Disable blocking of redirections by Flask Debug Toolbar extension
+DEBUG_TB_INTERCEPT_REDIRECTS = False

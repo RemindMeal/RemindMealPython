@@ -11,5 +11,8 @@ class Category(db.Model):
                      server_default=db.text('CURRENT_TIMESTAMP'))
     name = db.Column(db.String(255), nullable=False, unique=True)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='categories')
+
     def __str__(self):
         return self.name

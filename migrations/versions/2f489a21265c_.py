@@ -1,4 +1,4 @@
-"""empty message
+"""Create 'cooking' table, linked to 'meal' and 'recipe'
 
 Revision ID: 2f489a21265c
 Revises: 514a5b5ac8fb
@@ -19,8 +19,8 @@ def upgrade():
     op.create_table('cooking',
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.Column('meal_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['meal_id'], ['meal.id'], ),
-    sa.ForeignKeyConstraint(['recipe_id'], ['recipe.id'], ),
+    sa.ForeignKeyConstraint(['meal_id'], ['meal.id'], name='fk_cooking_meal'),
+    sa.ForeignKeyConstraint(['recipe_id'], ['recipe.id'], name='fk_cooking_recipe'),
     sa.PrimaryKeyConstraint('recipe_id', 'meal_id')
     )
     ### end Alembic commands ###

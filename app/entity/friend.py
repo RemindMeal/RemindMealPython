@@ -12,6 +12,9 @@ class Friend(db.Model):
     name = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='friends')
+
     def __unicode__(self):
         return u"{:s} {:s}".format(self.name, self.surname)
 

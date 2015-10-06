@@ -1,4 +1,4 @@
-"""empty message
+"""Create 'paricipation' table, which is a relation table between 'meal' and 'friend'
 
 Revision ID: 5a3cf7f71786
 Revises: 3a5de6b4bb46
@@ -19,8 +19,8 @@ def upgrade():
     op.create_table('participation',
     sa.Column('friend_id', sa.Integer(), nullable=False),
     sa.Column('meal_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['friend_id'], ['friend.id'], ),
-    sa.ForeignKeyConstraint(['meal_id'], ['meal.id'], ),
+    sa.ForeignKeyConstraint(['friend_id'], ['friend.id'], name='fk_participation_friend'),
+    sa.ForeignKeyConstraint(['meal_id'], ['meal.id'], name='fk_participation_meal'),
     sa.PrimaryKeyConstraint('friend_id', 'meal_id')
     )
     ### end Alembic commands ###

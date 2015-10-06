@@ -14,5 +14,8 @@ class Recipe(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', backref='recipes')
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref='recipes')
+
     def __str__(self):
         return self.name

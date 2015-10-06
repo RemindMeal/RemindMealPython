@@ -10,9 +10,17 @@ class MyView(ModelView):
     create_modal = True
     edit_modal = True
     details_modal = True
+    form_excluded_columns = ('user',)
 
     def is_accessible(self):
         return current_user.is_authenticated()
+
+    # Database-related API
+    def get_query(self):
+        return super(MyView, self).get_query().filter(self.model.user == current_user)
+
+    def on_model_change(self, form, model, is_created):
+        model.user = current_user
 
 
 class CategoryView(MyView):
@@ -35,7 +43,7 @@ class FriendView(MyView):
     column_list = ('nom',)
     column_labels = dict(name='Prenom', surname='Nom')
     column_searchable_list = ('name', 'surname')
-    form_excluded_columns = ('date', 'meals')
+    form_excluded_columns = ('date', 'meals', 'user')
 
     column_formatters = dict(nom=lambda v, c, m, p: u'<a href="{:s}">{:s} {:s}</a>'.format(
         url_for('.show_view', id=m.id), m.name, m.surname))
@@ -63,6 +71,8 @@ class MealView(MyView):
     column_list = ('date', 'recipes', 'friends')
     column_labels = dict(date='Date', recipes='Menu', friends='Invites')
     column_filters = ('date', 'recipes', 'friends')
+    column_searchable_list = ('date', 'recipes.name', 'friends.name', 'friends.surname')
+    form_excluded_columns = ('user',)
 
     create_modal_template = 'meal/modals/create.html'
     edit_modal_template = 'meal/modals/edit.html'
@@ -77,8 +87,9 @@ class RecipeView(MyView):
     column_list = ('name', 'category')
     column_labels = dict(name='Nom', category='Categorie')
     column_filters = ('name', 'category.name')
+    column_searchable_list = ('name', 'category.name')
     column_sortable_list = ('name', 'category.name')
-    form_excluded_columns = ('date', 'meals')
+    form_excluded_columns = ('date', 'meals', 'user')
 
     show_template = "recipe/show.html"
 
