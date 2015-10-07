@@ -1,8 +1,8 @@
 parameters = {
-    'debug': True,
-    'servername': 'localhost:5001',
+    'debug': False,
+    'servername': '93.115.97.231',
     'dbname': 'remindmeal',
-    'dbpassword': 'remindmeal',
+    'dbpassword': '',
     'dbuser': 'remindmeal',
     'dbhost': 'localhost',
     'dbport': 3307
