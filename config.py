@@ -4,7 +4,7 @@ from parameters import parameters
 DEBUG = parameters['debug']
 print "Config loaded with debug {}".format(DEBUG)
 
-SERVER_NAME = parameters['servername']
+#SERVER_NAME = parameters['servername']
 
 # Define the application directory
 import os

@@ -84,12 +84,12 @@ class MealView(MyView):
 
 class RecipeView(MyView):
 
-    column_list = ('name', 'category')
-    column_labels = dict(name='Nom', category='Categorie')
-    column_filters = ('name', 'category.name')
-    column_searchable_list = ('name', 'category.name')
+    column_list = ('name', 'category', 'mark', 'description', 'reference')
+    column_labels = dict(name='Nom', category='Categorie', mark='Note')
+    column_filters = ('name', 'category.name', 'description')
+    column_searchable_list = ('name', 'category.name', 'description')
     column_sortable_list = ('name', 'category.name')
-    form_excluded_columns = ('date', 'meals', 'user')
+    form_columns = ('name', 'category', 'mark', 'description', 'reference')
 
     show_template = "recipe/show.html"
 
