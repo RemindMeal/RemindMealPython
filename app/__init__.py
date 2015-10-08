@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.admin import Admin, AdminIndexView, helpers as admin_helpers
 from flask.ext.debugtoolbar import DebugToolbarExtension
+from flask.ext.mail import Mail
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.babelex import Babel
 from flask.ext.security import Security, SQLAlchemyUserDatastore
@@ -31,6 +32,7 @@ babel = Babel(app, default_locale='fr')
 from app.entity.user import Role, User
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
+mail = Mail(app)
 
 @security.context_processor
 def security_context_processor():
