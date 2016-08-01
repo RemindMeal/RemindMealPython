@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block head_body %}
+  Liste de vos catégories
+{% endblock %}
+
+{% block body %}
+  <ul>
+    {% for category in categories %}
+      <li>{{ category }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

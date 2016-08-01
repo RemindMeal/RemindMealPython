@@ -1,0 +1,93 @@
+{% extends 'admin/base.html' %}
+
+{% block head_css %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_body %}
+  <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        {% block brand %}
+          <div class="navbar-brand">RemindMeal</div>
+        {% endblock %}
+      </div>
+
+      <div class="collapse navbar-collapse" id="admin-navbar-collapse">
+
+        {% block main_menu %}
+          <ul class="nav navbar-nav">
+            {{ layout.menu() }}
+          </ul>
+        {% endblock %}
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="fa fa-user fa-fw"></i> {{ current_user }} <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+              {% if current_user.is_authenticated -%}
+                <li><a href="#">Bonjour {{ current_user }}</a></li>
+                <li class="divider"></li>
+                <li>
+                  <a href="{{ url_for('security.profile') }}">
+                    <i class="fa fa-user fa-fw"></i>
+                    Profil
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('security.profile') }}">
+                    <i class="fa fa-gear fa-fw"></i>
+                    Paramètres
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="{{ url_for('security.logout') }}">
+                    <i class="fa fa-sign-out fa-fw"></i>
+                    Déconnexion
+                  </a>
+                </li>
+              {%- else -%}
+                <li>
+                  <a href="{{ url_for('security.login') }}">
+                    <i class="fa fa-sign-in fa-fw"></i>
+                    Connexion
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ url_for('security.register') }}">
+                    <i class="fa fa-sign-in fa-fw"></i>
+                    S'enregister
+                  </a>
+                </li>
+              {%- endif %}
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+
+    <hr>
+    <hr>
+
+    {% block messages %}
+    {{ layout.messages() }}
+    {% endblock %}
+
+    {# store the jinja2 context for form_rules rendering logic #}
+    {% set render_ctx = h.resolve_ctx() %}
+
+    {% block body %}{% endblock %}
+  </div>
+{% endblock %}

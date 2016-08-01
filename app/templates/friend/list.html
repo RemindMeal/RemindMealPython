@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block head_body %}
+  Liste de vos amis
+{% endblock %}
+
+{% block body %}
+  <ul>
+    {% for friend in current_user.friends -%}
+      <li>{{ friend }}</li>
+    {%- endfor %}
+  </ul>
+{% endblock %}

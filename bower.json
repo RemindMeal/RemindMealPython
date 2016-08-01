@@ -1,0 +1,21 @@
+{
+  "name": "RemindMeal",
+  "authors": [
+    "Edouard Berthe <berthe.ed@gmail.com>"
+  ],
+  "description": "Web application of recipes / meals management",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/static/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.6.3"
+  }
+}

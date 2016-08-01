@@ -1,9 +1,0 @@
-{% extends 'admin/master.html' %}
-
-{% block body %}
-    <h3>Recette {{ recipe.name }}</h3>
-
-    <p>Cette recette a été créée le {{ recipe.date }}</p>
-
-    <p>Vous avez cuisiné cette recette pour la dernière fois le {{ recipe.meals[-1].date }}</p>
-{% endblock %}

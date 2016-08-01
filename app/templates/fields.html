@@ -1,0 +1,37 @@
+{% macro render_error(field) %}
+  {% if field.errors -%}
+    <div class="help-block">
+      <ul>
+        {% for error in field.errors -%}
+          <li>{{ error }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  {%- endif %}
+{% endmacro %}
+
+{% macro render(field, placeholder, glyphicon='') %}
+
+  {{ render_error(field) }}
+
+  <div class="input-group {% if field.errors %}has-error{% elif field.data.value %}has-success{% else %}{% endif %}" style="margin-bottom: 25px">
+    <span class="input-group-addon">
+      <i class="{{ 'glyphicon' if glyphicon != '' else field.icon_type }} {{ glyphicon if glyphicon != '' else field.icon }}"></i>
+    </span>
+    {{ field(class="form-control", placeholder=placeholder) }}
+  </div>
+
+{% endmacro %}
+
+{% macro render_select2(field)  %}
+  <div class="form-group {% if field.errors %}has-error{% endif %}">
+    {{ render_error(field) }}
+    {{ field.label(class="col-xs-3 control-label") }}
+    <div class="input-group select2-bootstrap-prepend col-xs-8">
+      <div class="input-group-addon">
+        <span class="{{ field.icon_type }} {{ field.icon }}"></span>
+      </div>
+      {{ field(class="form-control select2") }}
+    </div>
+  </div>
+{% endmacro %}

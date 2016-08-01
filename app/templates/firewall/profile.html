@@ -1,0 +1,24 @@
+{% extends 'admin/my_base.html' %}
+
+{% block head_body %}
+  Votre profil utilisateur
+{% endblock %}
+
+{% block body %}
+  <table class="table table-hover table-bordered table-responsive table-striped">
+    <tbody>
+      <tr>
+        <td>Email</td>
+        <td>{{ current_user.email }}</td>
+      </tr>
+      <tr>
+        <td>Prénom</td>
+        <td>{{ current_user.name }}</td>
+      </tr>
+      <tr>
+        <td>Nom</td>
+        <td>{{ current_user.surname }}</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
