@@ -1,6 +1,10 @@
-from app.views import MyView
 from flask import Blueprint, render_template
 from flask_admin import expose
+
+from app import db
+from app.category.model import Category
+from app.utils import MyQueryAjaxModelLoader
+from app.views import MyView
 from .model import Recipe
 
 recipe = Blueprint('recipe', __name__)
@@ -30,6 +34,12 @@ class RecipeView(MyView):
     create_modal_template = 'recipe/modals/create.html'
     edit_modal_template = 'recipe/modals/edit.html'
     details_modal_template = 'recipe/modals/details.html'
+
+    form_ajax_refs = {
+        "category": MyQueryAjaxModelLoader(
+            "category", db.session, Category, fields=['name']
+        ),
+    }
 
     def __init__(self, session):
         super(RecipeView, self).__init__(Recipe, session, "Recettes")
