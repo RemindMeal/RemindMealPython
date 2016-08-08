@@ -1,0 +1,22 @@
+{% extends 'admin/my_base.html' %}
+{% from 'fields.html' import render %}
+
+{% block body %}
+    <div class="container">
+        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="margin-top:30px;">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Renseignez votre nom et prénom</div>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <form id="loginForm" role="form" name="settings_form" action="{{ url_for('security.settings') }}" method="post" class="form-horizontal">
+                        {{ render(settings_form.name, 'Prénom', 'glyphicon-user') }}
+                        {{ render(settings_form.surname, 'Nom', 'glyphicon-user') }}
+                        {{ settings_form.next }}
+                        <div style="margin-top:20px" class="input-group">{{ settings_form.submit(class='btn btn-success') }}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

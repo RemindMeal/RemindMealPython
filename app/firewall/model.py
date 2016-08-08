@@ -1,3 +1,5 @@
+# coding: utf8
+
 from app import db
 from flask_security import UserMixin, RoleMixin
 from sqlalchemy import Table, Column, Integer, ForeignKey, String, Boolean, DateTime
@@ -32,4 +34,4 @@ class User(db.Model, UserMixin):
     roles = relationship('Role', secondary=roles_users, backref=backref('users', lazy='dynamic'))
 
     def __str__(self):
-        return "{:s} {:s}".format(self.name, self.surname)
+        return u"{:s} {:s}".format(self.name, self.surname)

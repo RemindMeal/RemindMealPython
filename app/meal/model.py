@@ -23,7 +23,7 @@ class Meal(db.Model):
     __tablename__ = 'meal'
 
     id = Column(Integer, primary_key=True)
-    date = Column(Date, nullable=False, default=dt.date.today(), server_default=text('CURRENT_TIMESTAMP'))
+    date = Column(Date, nullable=False, default=dt.date.today(), server_default=text('CURRENT_DATE'))
     friends = relationship('Friend', secondary=Participation, backref="meals")
     recipes = relationship('Recipe', secondary=Cooking, backref="meals")
 
