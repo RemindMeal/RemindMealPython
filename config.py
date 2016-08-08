@@ -1,3 +1,5 @@
+# coding: utf8
+
 import os
 from parameters import parameters
 
@@ -21,14 +23,28 @@ CSRF_SESSION_KEY = "fxfxqfvqgqcqfqijqfciqjixi354545Icijrmcijfeicj5J3OICJ53Mjcmjr
 SECRET_KEY = "EUHFNXLUEHfnxluehflnxuzehf343U483UCN3URNCP3Unczeficjnzeifjc34U39URCN3RUCNfjcnijfcm"
 
 # Flask-Security config
+# Login
 SECURITY_LOGIN_USER_TEMPLATE = 'firewall/login.html'
-SECURITY_REGISTER_USER_TEMPLATE = 'firewall/register.html'
-SECURITY_CHANGE_PASSWORD_USER_TEMPLATE = 'firewall/change.html'
-SECURITY_REGISTERABLE = True
 SECURITY_CONFIRMABLE = False
+SECURITY_MSG_INVALID_PASSWORD = (u"Mauvais mot de passse", 'error')
+
+# Register
+SECURITY_REGISTERABLE = True
+SECURITY_REGISTER_USER_TEMPLATE = 'firewall/register.html'
+SECURITY_SEND_REGISTER_EMAIL = False
+SECURITY_MSG_PASSWORD_INVALID_LENGTH = (u"Veuillez choisir un mot de passe d'au moins 6 caractères", 'error')
+SECURITY_MSG_USER_DOES_NOT_EXIST = (u"Aucun utilisateur avec cet e-mail n'a été trouvé !", 'error')
+
+# Change password
+SECURITY_CHANGEABLE = True
+SECURITY_CHANGE_PASSWORD_TEMPLATE = 'firewall/change.html'
+SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
+SECURITY_MSG_PASSWORD_CHANGE = (u'Votre mot de passe a bien été changé !', 'success')
+
+# Other
 SECURITY_PASSWORD_HASH = 'pbkdf2_sha512'
 SECURITY_PASSWORD_SALT = 'fncoqzifjcqmzoeifjnvqmghcqnmfiqxeje,zmqcgnixzmnijcgimcqjergiomc,qejiormgcjnq'
 SECURITY_UNAUTHORIZED_VIEW = 'security.login'
-SECURITY_SEND_REGISTER_EMAIL = False
 
+# Flask-DebugToolbar
 DEBUG_TB_INTERCEPT_REDIRECTS = False
