@@ -1,13 +1,13 @@
-"""Creates schema
+"""Creates Database
 
-Revision ID: 868b58a77f8f
+Revision ID: 1
 Revises: None
-Create Date: 2016-08-01 13:06:10.016958
+Create Date: 2016-08-08 16:40:57.523943
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '868b58a77f8f'
+revision = '1'
 down_revision = None
 
 from alembic import op
@@ -34,8 +34,8 @@ def upgrade():
         sa.Column('email', sa.String(length=255), nullable=False),
         sa.Column('name', sa.String(length=255), nullable=False),
         sa.Column('surname', sa.String(length=255), nullable=False),
-        sa.Column('password', sa.String(length=255), nullable=True),
-        sa.Column('active', sa.Boolean(), nullable=True),
+        sa.Column('password', sa.String(length=255), nullable=False),
+        sa.Column('active', sa.Boolean(), nullable=False),
         sa.Column('confirmed_at', sa.DateTime(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('email')
@@ -45,8 +45,9 @@ def upgrade():
         sa.Column('date', sa.DateTime(), server_default=sa.text(u'CURRENT_TIMESTAMP'), nullable=False),
         sa.Column('name', sa.String(length=255), nullable=False),
         sa.Column('user_id', sa.Integer(), nullable=False),
-        sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-        sa.PrimaryKeyConstraint('id')
+        sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
+        sa.PrimaryKeyConstraint('id'),
+        sa.UniqueConstraint('name', 'user_id')
     )
     op.create_table('friend',
         sa.Column('id', sa.Integer(), nullable=False),
@@ -59,7 +60,7 @@ def upgrade():
     )
     op.create_table('meal',
         sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('date', sa.Date(), server_default=sa.text(u'CURRENT_TIMESTAMP'), nullable=False),
+        sa.Column('date', sa.Date(), server_default=sa.text(u'CURRENT_DATE'), nullable=False),
         sa.Column('user_id', sa.Integer(), nullable=False),
         sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
         sa.PrimaryKeyConstraint('id')

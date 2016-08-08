@@ -27,8 +27,8 @@ class User(db.Model, UserMixin):
     email = Column(String(255), unique=True, nullable=False)
     name = Column(String(255), nullable=False)
     surname = Column(String(255), nullable=False)
-    password = Column(String(255))
-    active = Column(Boolean)
+    password = Column(String(255), nullable=False)
+    active = Column(Boolean, nullable=False)
     confirmed_at = Column(DateTime)
 
     roles = relationship('Role', secondary=roles_users, backref=backref('users', lazy='dynamic'))
