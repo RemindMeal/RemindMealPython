@@ -48,3 +48,6 @@ SECURITY_UNAUTHORIZED_VIEW = 'security.login'
 
 # Flask-DebugToolbar
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+# Sentry
+SENTRY_DSN = 'https://0c0bacc3890a47939c6e3b37056255eb:4d378307a6624eec8d1f0c68cd3c995a@sentry.io/95589'

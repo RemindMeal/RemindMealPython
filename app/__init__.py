@@ -7,12 +7,15 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import current_user
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_sqlalchemy import SQLAlchemy
+from raven.contrib.flask import Sentry
 
 app = Flask(__name__)
 app.config.from_object('config')
 app.jinja_env.autoescape = False
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
+
+Sentry(app)
 
 db = SQLAlchemy(app)
 
