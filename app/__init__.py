@@ -15,12 +15,12 @@ app.jinja_env.autoescape = False
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
-Sentry(app)
-
-db = SQLAlchemy(app)
-
 DebugToolbarExtension(app)
 Babel(app, default_locale='fr')
+# Sentry(app)
+
+from app.models import db, User, Role
+db.init_app(app)
 
 from app.firewall import Role, User, MyRegisterForm, MyUserForm
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
