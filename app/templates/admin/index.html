@@ -4,4 +4,43 @@
   <div class="container">
     <h2>Bienvenue sur RemindMeal, l'application de gestion de recettes et de repas !</h2>
   </div>
+  <div class="row">
+    {% if current_user.is_authenticated %}
+      <div class="col-lg-3 col-sm-4">
+        {% include 'home/panels/friend.html' %}
+      </div>
+      <div class="col-lg-3 col-sm-4">
+        {% include 'home/panels/recipe.html' %}
+      </div>
+      <div class="col-lg-3 col-sm-4">
+        {% include 'home/panels/meal.html' %}
+      </div>
+    {% else %}
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            Déjà inscrit ?
+          </div>
+          <a href="{{ url_for('security.login') }}">
+            <div class="panel-body">
+              Connexion
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Pas encore de compte ?
+          </div>
+          <a href="{{ url_for('security.register') }}">
+            <div class="panel-body">
+              Inscription
+            </div>
+          </a>
+        </div>
+      </div>
+  {% endif %}
+
+  </div>
 {% endblock %}

@@ -1,15 +1,16 @@
-from datetime import datetime, date
+from datetime import date, datetime
 
 from flask_security import RoleMixin, UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Boolean
-from sqlalchemy import Column, Date, DateTime, ForeignKey, Integer, SMALLINT, String, Table, Text, text
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String, Table, Text, text
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.orm import backref, relationship
 
 db = SQLAlchemy()
+Base = db.Model
 
 
-class Friend(db.Model):
+class Friend(Base):
     """Entity Friend"""
 
     __tablename__ = 'friend'
@@ -22,8 +23,8 @@ class Friend(db.Model):
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship('User', backref='friends')
 
-    def __unicode__(self):
-        return u"{:s} {:s}".format(self.name, self.surname)
+    def __str__(self):
+        return "{:s} {:s}".format(self.name, self.surname)
 
     @property
     def recipes(self):
@@ -34,20 +35,24 @@ class Friend(db.Model):
                     array.append(recipe)
         return array
 
+    @hybrid_property
+    def full_name(self):
+        return self.name + " " + self.surname
+
 Cooking = Table(
     'cooking',
-    db.metadata,
+    Base.metadata,
     Column('recipe_id', Integer, ForeignKey('recipe.id'), primary_key=True),
     Column('meal_id', Integer, ForeignKey('meal.id'), primary_key=True))
 
 Participation = Table(
     'participation',
-    db.metadata,
+    Base.metadata,
     Column('friend_id', Integer, ForeignKey('friend.id'), primary_key=True),
     Column('meal_id', Integer, ForeignKey('meal.id'), primary_key=True))
 
 
-class Meal(db.Model):
+class Meal(Base):
     """Entity Meal"""
 
     __tablename__ = 'meal'
@@ -72,17 +77,7 @@ class Meal(db.Model):
         return result
 
 
-class Mark(db.Model):
-    """Entity Mark"""
-
-    __tablename__ = 'mark'
-
-    id = Column(Integer, primary_key=True)
-    value = Column(SMALLINT, unique=True)
-    description = Column(String(255))
-
-
-class Category(db.Model):
+class Category(Base):
 
     __tablename__ = 'category'
 
@@ -92,8 +87,11 @@ class Category(db.Model):
     def __str__(self):
         return self.name
 
+    def __repr__(self):
+        return "<Category {:s}>".format(str(self))
 
-class Recipe(db.Model):
+
+class Recipe(Base):
     """Entity Recipe"""
 
     __tablename__ = 'recipe'
@@ -104,11 +102,9 @@ class Recipe(db.Model):
     reference = Column(String(255))
     description = Column(Text)
     category_id = Column(Integer, ForeignKey('category.id'), nullable=False)
-    mark_id = Column(Integer, ForeignKey('mark.id'))
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
 
     category = relationship('Category')
-    mark = relationship('Mark')
     user = relationship('User', backref='recipes')
 
     def __str__(self):
@@ -121,13 +117,16 @@ class Recipe(db.Model):
 
 roles_users = Table(
     'role_user',
-    db.metadata,
+    Base.metadata,
     Column('user_id', Integer, ForeignKey('user.id')),
     Column('role_id', Integer, ForeignKey('role.id'))
 )
 
 
-class Role(db.Model, RoleMixin):
+class Role(Base, RoleMixin):
+
+    __tablename__ = 'role'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(80), unique=True, nullable=False)
     description = Column(String(255))
@@ -136,7 +135,10 @@ class Role(db.Model, RoleMixin):
         return str(self.name)
 
 
-class User(db.Model, UserMixin):
+class User(Base, UserMixin):
+
+    __tablename__ = 'user'
+
     id = Column(Integer, primary_key=True)
     email = Column(String(255), unique=True, nullable=False)
     name = Column(String(255), nullable=False)

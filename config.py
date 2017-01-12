@@ -1,10 +1,7 @@
-# coding: utf8
-
 import os
 from parameters import parameters
 
 DEBUG = parameters['debug']
-print("Config loaded with debug {}".format(DEBUG))
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
