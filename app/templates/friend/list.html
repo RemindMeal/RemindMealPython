@@ -24,9 +24,10 @@
           <div class="panel-footer">
             <span class="pull-left">
               <div class="list-buttons-column">
-                {% block list_row_actions scoped %}
-                  {{ super() }}
-                {% endblock %}
+                {{ list_row_actions }}
+                {% for action in list_row_actions %}
+                  {{ action }}
+                {% endfor %}
               </div>
             </span>
             <span class="pull-right">
